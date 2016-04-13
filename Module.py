@@ -1,12 +1,16 @@
-from urllib import urlencode
-from urllib import urlretrieve
+try:
+    from urllib import urlretrieve
+    from urllib import urlencode
+except ImportError:
+    from urllib.request import urlretrieve
+    from urllib.request import urlencode
 
 import os
 import csv
 #Date,Open,High,Low,Close,Volume,Adj Close
 class Share(object):
 
-    def __init__(self, stock,start,(finish)):
+    def __init__(self, stock,start,finish):
         self.quote =stock
         self.start=start
         self.finish=finish
@@ -29,7 +33,7 @@ class Share(object):
             with open("%s.csv" % self.quote,'rb') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    print row['Open'] +' '+ row['Date']
+                    print(row['Open'] +' '+ row['Date'])
             os.remove('%s.csv' % self.quote)
         except:
             cleanup(self.quote)
@@ -41,7 +45,7 @@ class Share(object):
             with open("%s.csv" % self.quote,'rb') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    print row['High'] +' '+ row['Date']
+                    print(row['High'] +' '+ row['Date'])
             os.remove('%s.csv' % self.quote)
         except:
             cleanup(self.quote)
@@ -53,7 +57,7 @@ class Share(object):
             with open("%s.csv" % self.quote,'rb') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    print row['Low'] +' '+ row['Date']
+                    print(row['Low'] +' '+ row['Date'])
             os.remove('%s.csv' % self.quote)
         except:
             cleanup(self.quote)
@@ -66,7 +70,7 @@ class Share(object):
             with open("%s.csv" % self.quote,'rb') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    print row['Close'] +' '+ row['Date']
+                    print(row['Close'] +' '+ row['Date'])
             os.remove('%s.csv' % self.quote)
         except:
             cleanup(self.quote)
@@ -79,7 +83,7 @@ class Share(object):
             with open("%s.csv" % self.quote,'rb') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    print row['Volume'] +' '+ row['Date']
+                    print(row['Volume'] +' '+ row['Date'])
             os.remove('%s.csv' % self.quote)
         except:
             cleanup(self.quote)
@@ -92,12 +96,12 @@ class Share(object):
             with open("%s.csv" % self.quote,'rb') as csvfile:
                 reader = csv.DictReader(csvfile)
                 for row in reader:
-                    print row['Adj Close'] +' '+ row['Date']
+                    print(row['Adj Close'] +' '+ row['Date'])
             os.remove('%s.csv' % self.quote)
         except:
             cleanup(self.quote)
 
 def cleanup(quote):
-        print "Error"
+        print("Error")
         try: os.remove('%s.csv' % quote)
         except: pass
